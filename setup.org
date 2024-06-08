@@ -1,0 +1,45 @@
+This document is here to remind myself that:
+1. I'm not stupid
+2. The fact that I don't remember how to set something up I last touched 3 years ago is alright
+3. It took me 3 hours to figure it all out
+4. CLion is shit
+5. How to actually make it all work
+
+The goal is to setup "handmade hero", a project by C. Muratori (https://handmadehero.org/) to:
+1. Follow his logic precisely, so developing for Windows
+2. But from the comfort of my Linux setup
+
+What we need:
+1. wine (yay -Syu wine)
+2. mingw64 on host (yay -Syu mingw-w64)
+3. mingw64 in wine prefix (I used https://github.com/Vuniverse0/mingwInstaller/releases/download/1.2.1/mingwInstaller.exe)
+4. gdb and friends.
+
+Building:
+
+x86_64-w64-mingw32-g++ -ggdb -static -static-libgcc -static-libstdc++ -D HANDMADE_SLOW=1 -D HANDMADE_INTERNAL=1 -I /usr/x86_64-w64-mingw32/include/ ../src/handmade_win32.cpp -lgdi32 -o handmade_win32.exe
+
+notable things:
+x64 architecture compiler; static linking; x64 mingw includes.
+
+Installing mingw64:
+wine mingwInstaller.exe; choose x64, msvcrt, and the version that's the same as mingw-w64-headers: 11.0.0-1 (this might be not actually needed but still)
+
+Wine subst drives:
+ln -s ~/git_tree/handmade-hero ~/.wine/dosdevices/w:
+
+Then, we're starting a gdbserver from wine's bin, and connecting to it with our vanilla gdb:
+/usr/bin/wine gdbserver.exe localhost:12345 W:\\build\\handmade_win32.exe
+
+And connecting to it with dap-mode with this config:
+(dap-register-debug-template
+  "localhost:12345"
+  (list :type "cppdbg"
+        :request "launch"
+        :name "cpptools::Run Configuration"
+        :MIMode "gdb"
+        :MIDebuggerServerAddress "localhost:12345"
+        :program "${workspaceFolder}/build/handmade_win32.exe"
+        :cwd "${workspaceFolder}"))
+
+DONE!

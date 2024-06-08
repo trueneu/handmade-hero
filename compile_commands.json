@@ -1,0 +1,21 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/x86_64-w64-mingw32-g++",
+      "-c",
+      "-ggdb",
+      "-D",
+      "HANDMADE_SLOW=1",
+      "-D",
+      "HANDMADE_INTERNAL=1",
+      "-I",
+      "/usr/x86_64-w64-mingw32/include/",
+      "-o",
+      "handmade_win32.exe",
+      "../src/handmade_win32.cpp"
+    ],
+    "directory": "/home/trueneu/git_tree/handmade-hero/build",
+    "file": "/home/trueneu/git_tree/handmade-hero/src/handmade_win32.cpp",
+    "output": "/home/trueneu/git_tree/handmade-hero/build/handmade_win32.exe"
+  }
+]
