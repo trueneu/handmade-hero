@@ -5,3 +5,5 @@ Language: Cpp
 ColumnLimit: 135
 AlignArrayOfStructures: Left
 AlignConsecutiveDeclarations: true
+AllowAllArgumentsOnNextLine: true
+BinPackArguments: false

@@ -2,3 +2,4 @@
          (projectile-project-run-cmd . "./run.sh")
          (projectile-project-test-cmd . "./gdbserver.sh")
          (projectile-project-compilation-dir . "."))))
+         ;; (eval . (load-file "/home/trueneu/git_tree/handmade-hero/debug-template.el")))))
